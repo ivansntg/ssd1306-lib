@@ -6,128 +6,146 @@
  */
 #include "ssd1306/ssd1306.h"
 
-#define SSD1306_I2C_CONTROL_BYTE_COMMAND 0x00
-#define SSD1306_I2C_CONTROL_BYTE_DATA 0x40
-#define SSD1306_DUMMY_BYTE_00 0x00
-#define SSD1306_DUMMY_BYTE_FF 0xFF
-
 #define SSD1306_COMMAND_SET_START_LINE(LINE) (0x40 | ((LINE) & 0x3F))
 #define SSD1306_PA_LOWER_START_COLUMN(COL) ((COL) & 0x0F)
 #define SSD1306_PA_HIGHER_START_COLUMN(COL) (0x10 | ((COL) & 0x0F))
 #define SSD1306_PA_START_PAGE(PAGE) (0xB0 | ((PAGE) & 0x07))
 
+/**
+ * @brief SSD1306 control byte.
+ */
+enum ssd1306_control_byte
+{
+    CONTROL_BYTE_COMMAND, DUMMY_BYTE_00 = 0x00,
+    CONTROL_BYTE_DATA = 0x40,
+    DUMMY_BYTE_FF = 0xFF
+};
+
+/**
+ * @brief Writes to the SSD1306 chip using a ssd1306_t struct.
+ * @param driver Pointer to a ssd1306 struct.
+ * @param src Pointer to data source.
+ * @param len Number of bytes to write.
+ */
+static inline void _ssd1306_write(ssd1306_t *driver, uint8_t *src, uint16_t len)
+{
+    driver->i2c_write(driver->i2c_address, src, len);
+}
+
 void ssd1306_set_contrast(ssd1306_t *driver, uint8_t contrast)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_CONTRAST_CONTROL,
         contrast
     };
-    driver->write(cmd, 3u);
+    _ssd1306_write(driver, cmd, 3u);
 }
 
 void ssd1306_set_display_on(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_DISPLAY_ON
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_set_display_off(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_DISPLAY_OFF
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_set_normal_display(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_NORMAL_DISPLAY
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_set_inverse_display(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_INVERSE_DISPLAY
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_set_entire_display_on(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_ENTIRE_DISPLAY_ON
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_resume_to_ram_content(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_RESUME_TO_RAM_CONTENT
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_activate_scroll(ssd1306_t *driver,
                              ssd1306_scrolling_config_t config)
 {
     if (config.mode >= VERTICAL_AND_RIGHT_SCROLL)
-{
-uint8_t cmd[] = {
-            SSD1306_I2C_CONTROL_BYTE_COMMAND,
+    {
+        uint8_t cmd[] = {
+            CONTROL_BYTE_COMMAND,
             SSD1306_COMMAND_SET_VERTICAL_SCROLL_AREA,
             config.start_row,
             config.rows,
             config.mode,
-            SSD1306_DUMMY_BYTE_00,
+            DUMMY_BYTE_00,
             config.start_page,
             config.rate,
             config.end_page,
-            config.vertical_offset
+            config.vertical_offset,
+            SSD1306_COMMAND_ACTIVATE_SCROLL
         };
-        driver->write(cmd, 10u);
+        _ssd1306_write(driver, cmd, 11u);
     }
     else
     {
         uint8_t cmd[] = {
-            SSD1306_I2C_CONTROL_BYTE_COMMAND,
+            CONTROL_BYTE_COMMAND,
             config.mode,
-            SSD1306_DUMMY_BYTE_00,
+            DUMMY_BYTE_00,
             config.start_page,
             config.rate,
             config.end_page,
-            SSD1306_DUMMY_BYTE_00,
-            SSD1306_DUMMY_BYTE_FF
+            DUMMY_BYTE_00,
+            DUMMY_BYTE_FF,
+            SSD1306_COMMAND_ACTIVATE_SCROLL
         };
-        driver->write(cmd, 8u);
+        _ssd1306_write(driver, cmd, 9u);
     }
 }
 
 void ssd1306_deactivate_scroll(ssd1306_t *driver)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_DEACTIVATE_SCROLL
     };
-    driver->write(cmd, 2u);
+    _ssd1306_write(driver, cmd, 2u);
 }
 
 void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
 {
     uint8_t cmd[] = {
-        SSD1306_I2C_CONTROL_BYTE_COMMAND,
+        CONTROL_BYTE_COMMAND,
         SSD1306_COMMAND_SET_DISPLAY_OFF,
         SSD1306_COMMAND_SET_MUX_RATIO,
         config.mux_ratio,
@@ -162,7 +180,7 @@ void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
         SSD1306_COMMAND_CHARGE_PUMP_SETTING,
         config.charge_pump
     };
-    driver->write(cmd, 34u);
+    _ssd1306_write(driver, cmd, 34u);
 }
 
 ssd1306_config_t ssd1306_get_default_config(void)
