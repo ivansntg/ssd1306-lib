@@ -209,3 +209,9 @@ ssd1306_config_t ssd1306_get_default_config(void)
     };
     return default_config;
 }
+
+void ssd1306_update_gddram(ssd1306_t *driver, uint8_t *bitmap, uint16_t lenght)
+{
+    bitmap[0] = CONTROL_BYTE_DATA;
+    _ssd1306_write(driver, bitmap, lenght);
+}

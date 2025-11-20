@@ -262,4 +262,13 @@ void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config);
  */
 ssd1306_config_t ssd1306_get_default_config(void);
 
+/**
+ * @brief Updates SSD1306 Graphics Display Data RAM.
+ * @param driver Pointer to a ssd1306 struct.
+ * @param bitmap Array containing graphics display data.
+ * @pram length Number of bytes to write.
+ * @note The first byte in the bitmap array is reserved as a control byte.
+ */
+void ssd1306_update_gddram(ssd1306_t *driver, uint8_t *bitmap, uint16_t lenght);
+
 #endif /* !__SSD1306_H */
