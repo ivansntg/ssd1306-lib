@@ -46,8 +46,8 @@
 typedef struct ssd1306
 {
     uint8_t i2c_address; /**< SSD1306 I2C address. */
-    /**< Struct for writing to the SSD1306 chip. */
-    void (*write)(uint8_t *, uint16_t);
+    /**< Function to write to the SSD1306 chip using the I2C interface. */
+    void (*i2c_write)(uint8_t, uint8_t *, uint16_t);
 } ssd1306_t;
 
 /**
