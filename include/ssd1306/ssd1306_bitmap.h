@@ -1,7 +1,7 @@
 /**
- * @file ssd1306_canvas.h
+ * @file ssd1306_bitmap.h
  * @author Iván Santiago (https://github.com/ivansntg)
- * @brief This file provides the ssd1306_canvas struct used for rendering
+ * @brief This file provides the ssd1306_bitmap struct used for rendering
  *        graphic primitives and text.
  */
 
@@ -15,28 +15,28 @@
  * @param WIDTH Display width in pixels.
  * @param HEIGHT Display height in pixels.
  */
-#define SSD1306_BUFFER_SIZE(WIDTH, HEIGHT) (1u + (WIDTH) * (HEIGHT << 3u))
+#define SSD1306_BUFFER_SIZE(WIDTH, HEIGHT) (1u + (WIDTH) * ((HEIGHT) >> 3u))
 
 /**
- * @brief Struct for writing graphic primitives and text to the SSD1306.
+ * @brief Struct for writing graphic primitives and text to the SSD1306 display.
  */
-typedef struct ssd1306_canvas
+typedef struct ssd1306_bitmap
 {
     uint8_t width; /**< Display width in pixels. */
     uint8_t height; /**< Display height in pixels. */
+    uint16_t length; /**< Buffer length. */
     uint8_t *data; /**< Pointer to buffer data. */
-    uint16_t lenght; /**< Buffer length. */
-} ssd1306_canvas_t;
+} ssd1306_bitmap_t;
 
 /**
  * @brief Fills the canvas data with 0x00.
  * @param canvas Pointer to a ssd1306_canvas struct.
  */
-static inline void ssd1306_canvas_clear(ssd1306_canvas_t *canvas)
+static inline void ssd1306_bitmap_clear(ssd1306_bitmap_t *bitmap)
 {
-    for (uint16_t i = 1; i < canvas->lenght; i++)
+    for (uint16_t i = 1; i < bitmap->length; i++)
     {
-        canvas->data[i] = 0x00;
+        bitmap->data[i] = 0x00;
     }
 }
 
