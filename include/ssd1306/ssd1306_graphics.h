@@ -8,8 +8,8 @@
 #ifndef __SSD1306_GRAPHICS_H
 #define __SSD1306_GRAPHICS_H
 
-#include <stdint.h>
 #include "ssd1306_bitmap.h"
+#include <stdint.h>
 
 /**
  * @brief Sets a pixel at the (x, y) position.
@@ -39,7 +39,6 @@ static inline void ssd1306_set_pixel(ssd1306_bitmap_t *bitmap, uint8_t x,
  */
 void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
                        int8_t x2, int8_t y2);
-
 
 /**
  * @brief Draws a circle using the midpoint algorithm.

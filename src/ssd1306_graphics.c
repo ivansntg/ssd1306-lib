@@ -10,14 +10,22 @@
 void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
                        int8_t x2, int8_t y2)
 {
-    if (x1 < 0) x1 = 0;
-    if (y1 < 0) y1 = 0;
-    if (x1 >= bitmap->width) x1 = bitmap->width - 1;
-    if (y1 >= bitmap->height) y1 = bitmap->height - 1;
-    if (x2 < 0) x2 = 0;
-    if (y2 < 0) y2 = 0;
-    if (x2 >= bitmap->width) x2 = bitmap->width - 1;
-    if (y2 >= bitmap->height) y2 = bitmap->height - 1;
+    if (x1 < 0)
+        x1 = 0;
+    if (y1 < 0)
+        y1 = 0;
+    if (x1 >= bitmap->width)
+        x1 = bitmap->width - 1;
+    if (y1 >= bitmap->height)
+        y1 = bitmap->height - 1;
+    if (x2 < 0)
+        x2 = 0;
+    if (y2 < 0)
+        y2 = 0;
+    if (x2 >= bitmap->width)
+        x2 = bitmap->width - 1;
+    if (y2 >= bitmap->height)
+        y2 = bitmap->height - 1;
 
     int16_t dx = x2 - x1;
     int16_t dy = y2 - y1;
@@ -47,14 +55,16 @@ void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
 
         if (de >= dy)
         {
-            if (x1 == x2) break;
+            if (x1 == x2)
+                break;
             e += dy;
             x1 += sx;
         }
 
         if (de <= dx)
         {
-            if (y1 == y2) break;
+            if (y1 == y2)
+                break;
             e += dx;
             y1 += sy;
         }
@@ -77,9 +87,11 @@ void ssd1306_draw_circle(ssd1306_bitmap_t *bitmap, int8_t cx, int8_t cy,
 
         r = e;
 
-        if (r <= y) e += ++y * 2 + 1;
+        if (r <= y)
+            e += ++y * 2 + 1;
 
-        if (r > x || e > y) e += ++x * 2 + 1;
+        if (r > x || e > y)
+            e += ++x * 2 + 1;
     } while (x < 0);
 }
 

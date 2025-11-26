@@ -22,10 +22,10 @@
  */
 typedef struct ssd1306_bitmap
 {
-    uint8_t width; /**< Display width in pixels. */
-    uint8_t height; /**< Display height in pixels. */
+    uint8_t width;   /**< Display width in pixels. */
+    uint8_t height;  /**< Display height in pixels. */
     uint16_t length; /**< Buffer length. */
-    uint8_t *data; /**< Pointer to buffer data. */
+    uint8_t *data;   /**< Pointer to buffer data. */
 } ssd1306_bitmap_t;
 
 /**

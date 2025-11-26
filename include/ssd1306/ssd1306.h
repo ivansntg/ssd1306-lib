@@ -16,7 +16,7 @@
 #define SSD1306_COMMAND_SET_NORMAL_DISPLAY 0xA6
 #define SSD1306_COMMAND_SET_INVERSE_DISPLAY 0xA7
 #define SSD1306_COMMAND_SET_DISPLAY_OFF 0xAE
-#define SSD1306_COMMAND_SET_DISPLAY_ON  0xAF
+#define SSD1306_COMMAND_SET_DISPLAY_ON 0xAF
 #define SSD1306_COMMAND_RIGHT_SCROLL_SETUP 0x26
 #define SSD1306_COMMAND_LEFT_SCROLL_SETUP 0x27
 #define SSD1306_COMMAND_VERTICAL_AND_RIGHT_SCROLL_SETUP 0x29
@@ -156,24 +156,24 @@ enum ssd1306_scrolling_rate
  */
 typedef struct ssd1306_config
 {
-    uint8_t contrast; /**< Contrast level (0-255). */
+    uint8_t contrast;               /**< Contrast level (0-255). */
     enum ssd1306_display_mode mode; /**< Normal or inverted mode. */
     enum ssd1306_addressing_mode addressing_mode; /**< Addressing mode. */
-    uint8_t start_column; /**< Start column address. */
-    uint8_t end_column; /**< End column address. */
-    uint8_t start_page; /**< Start page address. */
-    uint8_t end_page; /**< End page address. */
-    uint8_t start_line; /**< Display start line. */
-    enum ssd1306_segment_remap seg_remap; /**< Segment re-map. */
+    uint8_t start_column;                         /**< Start column address. */
+    uint8_t end_column;                           /**< End column address. */
+    uint8_t start_page;                           /**< Start page address. */
+    uint8_t end_page;                             /**< End page address. */
+    uint8_t start_line;                           /**< Display start line. */
+    enum ssd1306_segment_remap seg_remap;         /**< Segment re-map. */
     uint8_t mux_ratio; /**< Multiplexer ratio (15-63). */
     enum ssd1306_scan_direction scan_direction; /**< Scan direction. */
     uint8_t display_offset; /**< Vertical shift by COM (0-63). */
     enum ssd1306_pin_configuration pin_config; /**< Hardware COM pins. */
-    enum ssd1306_com_remap com_remap; /**< COM left/right remap. */
-    uint8_t clock_divider; /**< Clock divide ratio (0-15). */
+    enum ssd1306_com_remap com_remap;          /**< COM left/right remap. */
+    uint8_t clock_divider;        /**< Clock divide ratio (0-15). */
     uint8_t oscillator_frequency; /**< Oscillator frequency. (0-15). */
-    uint8_t phase1_period; /**< Phase 1 period. (1-15). */
-    uint8_t phase2_period; /**< Phase 2 period. (1-15). */
+    uint8_t phase1_period;        /**< Phase 1 period. (1-15). */
+    uint8_t phase2_period;        /**< Phase 2 period. (1-15). */
     enum ssd1306_deselect_level deselect_level; /**< Deselect V_{COMH} level. */
     enum ssd1306_charge_pump charge_pump; /**< Enable/disable charge pump. */
 } ssd1306_config_t;
@@ -185,11 +185,11 @@ typedef struct ssd1306_scrolling_config
 {
     enum ssd1306_scrolling_mode mode; /**< Scrolling mode. */
     enum ssd1306_scrolling_rate rate; /**< Scrolling rate. */
-    uint8_t start_page; /**< Horizontal scrolling start page. */
-    uint8_t end_page; /**< Horizontal scrolling end page. */
-    uint8_t vertical_offset; /**< Vertical scrolling offset. */
+    uint8_t start_page;               /**< Horizontal scrolling start page. */
+    uint8_t end_page;                 /**< Horizontal scrolling end page. */
+    uint8_t vertical_offset;          /**< Vertical scrolling offset. */
     uint8_t start_row; /**< Number of rows in the top fixed area. */
-    uint8_t rows; /**< Number of rows for vertical scrolling. */
+    uint8_t rows;      /**< Number of rows for vertical scrolling. */
 } ssd1306_scrolling_config_t;
 
 /**
