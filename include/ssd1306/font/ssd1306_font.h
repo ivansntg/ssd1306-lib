@@ -13,8 +13,7 @@
 /**
  * @brief SSD1306 font type.
  */
-enum ssd1306_font_type
-{
+enum ssd1306_font_type {
     SSD1306_FIXED_WIDTH_FONT,   /**< All character have the same width. */
     SSD1306_VARIABLE_WIDTH_FONT /**< Characters have different widths. */
 };
@@ -22,8 +21,7 @@ enum ssd1306_font_type
 /**
  * @brief Struct for managing a bitmap-based font.
  */
-typedef struct ssd1306_font
-{
+typedef struct ssd1306_font {
     enum ssd1306_font_type type; /**< Fixed width or variable width font. */
     char first_char;             /**< First ASCII character. */
     char last_char;              /**< Last ASCII character. */

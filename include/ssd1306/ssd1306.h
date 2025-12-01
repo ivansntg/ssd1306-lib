@@ -43,8 +43,7 @@
 /**
  * @brief Struct for driving a SSD1306-based display.
  */
-typedef struct ssd1306
-{
+typedef struct ssd1306 {
     uint8_t i2c_address; /**< SSD1306 I2C address. */
     /**< Function to write to the SSD1306 chip using the I2C interface. */
     void (*i2c_write)(uint8_t, uint8_t *, uint16_t);
@@ -54,17 +53,12 @@ typedef struct ssd1306
  * @brief SSD1306 display mode. When the inverted mode is selected a 0 in RAM is
  *        ON in the display panel.
  */
-enum ssd1306_display_mode
-{
-    NORMAL_DISPLAY = 0xA6,
-    INVERSE_DISPLAY = 0xA7
-};
+enum ssd1306_display_mode { NORMAL_DISPLAY = 0xA6, INVERSE_DISPLAY = 0xA7 };
 
 /**
  * @brief SSD1306 scrolling mode.
  */
-enum ssd1306_scrolling_mode
-{
+enum ssd1306_scrolling_mode {
     RIGHT_HORIZONTAL_SCROLL = 0x26,
     LEFT_HORIZONTAL_SCROLL = 0x27,
     VERTICAL_AND_RIGHT_SCROLL = 0x29,
@@ -74,8 +68,7 @@ enum ssd1306_scrolling_mode
 /**
  * @brief SSD1306 segment mapping mode.
  */
-enum ssd1306_segment_remap
-{
+enum ssd1306_segment_remap {
     MAP_COL0_TO_SEG0 = 0xA0,
     MAP_COL127_TO_SEG0 = 0xA1
 };
@@ -83,8 +76,7 @@ enum ssd1306_segment_remap
 /**
  * @brief SSD1306 scan direction.
  */
-enum ssd1306_scan_direction
-{
+enum ssd1306_scan_direction {
     SCAN_DIRECTION_NORMAL = 0xC0,
     SCAN_DIRECTION_REMAPPED = 0xC8
 };
@@ -92,8 +84,7 @@ enum ssd1306_scan_direction
 /**
  * @brief SSD1306 COM pins hardware configuration.
  */
-enum ssd1306_pin_configuration
-{
+enum ssd1306_pin_configuration {
     SEQUENTIAL_COM_PIN_CONFIGURATION = 0x00,
     ALTERNATIVE_COM_PIN_CONFIGURATION = 0x10
 };
@@ -101,8 +92,7 @@ enum ssd1306_pin_configuration
 /**
  * @brief SSD1306 COM left/rigt remap.
  */
-enum ssd1306_com_remap
-{
+enum ssd1306_com_remap {
     DISABLE_COM_LEFT_RIGHT_REMAP = 0x00,
     ENABLE_COM_LEFT_RIGHT_REMAP = 0x20
 };
@@ -110,8 +100,7 @@ enum ssd1306_com_remap
 /**
  * @brief SSD1306 deselect level.
  */
-enum ssd1306_deselect_level
-{
+enum ssd1306_deselect_level {
     DESELECT_LEVEL_65_PERCENT_VCC = 0x00,
     DESELECT_LEVEL_77_PERCENT_VCC = 0x20,
     DESELECT_LEVEL_83_PERCENT_VCC = 0x30
@@ -120,8 +109,7 @@ enum ssd1306_deselect_level
 /**
  * @brief SSD1306 enable/disable charge pump.
  */
-enum ssd1306_charge_pump
-{
+enum ssd1306_charge_pump {
     DISABLE_CHARGE_PUMP = 0x10,
     ENABLE_CHARGE_PUMP = 0x14
 };
@@ -129,8 +117,7 @@ enum ssd1306_charge_pump
 /**
  * @brief SSD1306 addressing mode.
  */
-enum ssd1306_addressing_mode
-{
+enum ssd1306_addressing_mode {
     HORIZONTAL_ADDRESSING_MODE,
     VERTICAL_ADDRESSING_MODE,
     PAGE_ADDRESSING_MODE
@@ -139,8 +126,7 @@ enum ssd1306_addressing_mode
 /**
  * @brief SSD1306 time between each scroll step.
  */
-enum ssd1306_scrolling_rate
-{
+enum ssd1306_scrolling_rate {
     SCROLL_RATE_5_FRAMES,
     SCROLL_RATE_64_FRAMES,
     SCROLL_RATE_128_FRAMES,
@@ -154,8 +140,7 @@ enum ssd1306_scrolling_rate
 /**
  * @brief Struct for configuring the SSD1306 chip.
  */
-typedef struct ssd1306_config
-{
+typedef struct ssd1306_config {
     uint8_t contrast;               /**< Contrast level (0-255). */
     enum ssd1306_display_mode mode; /**< Normal or inverted mode. */
     enum ssd1306_addressing_mode addressing_mode; /**< Addressing mode. */
@@ -181,8 +166,7 @@ typedef struct ssd1306_config
 /**
  * @brief Struct for configuring SSD1306 scroll.
  */
-typedef struct ssd1306_scrolling_config
-{
+typedef struct ssd1306_scrolling_config {
     enum ssd1306_scrolling_mode mode; /**< Scrolling mode. */
     enum ssd1306_scrolling_rate rate; /**< Scrolling rate. */
     uint8_t start_page;               /**< Horizontal scrolling start page. */

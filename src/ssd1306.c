@@ -14,8 +14,7 @@
 /**
  * @brief SSD1306 control byte.
  */
-enum ssd1306_control_byte
-{
+enum ssd1306_control_byte {
     CONTROL_BYTE_COMMAND,
     DUMMY_BYTE_00 = 0x00,
     CONTROL_BYTE_DATA = 0x40,
@@ -80,8 +79,7 @@ void ssd1306_resume_to_ram_content(ssd1306_t *driver)
 void ssd1306_activate_scroll(ssd1306_t *driver,
                              ssd1306_scrolling_config_t config)
 {
-    if (config.mode >= VERTICAL_AND_RIGHT_SCROLL)
-    {
+    if (config.mode >= VERTICAL_AND_RIGHT_SCROLL) {
         uint8_t cmd[] = {CONTROL_BYTE_COMMAND,
                          SSD1306_COMMAND_SET_VERTICAL_SCROLL_AREA,
                          config.start_row,
@@ -94,9 +92,7 @@ void ssd1306_activate_scroll(ssd1306_t *driver,
                          config.vertical_offset,
                          SSD1306_COMMAND_ACTIVATE_SCROLL};
         _ssd1306_write(driver, cmd, 11u);
-    }
-    else
-    {
+    } else {
         uint8_t cmd[] = {CONTROL_BYTE_COMMAND,
                          config.mode,
                          DUMMY_BYTE_00,

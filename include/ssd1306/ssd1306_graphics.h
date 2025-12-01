@@ -20,8 +20,7 @@
 static inline void ssd1306_set_pixel(ssd1306_bitmap_t *bitmap, uint8_t x,
                                      uint8_t y)
 {
-    if (x < bitmap->width && y < bitmap->height)
-    {
+    if (x < bitmap->width && y < bitmap->height) {
         uint16_t index = 1u + x + (y >> 3u) * bitmap->width;
         uint8_t value = 1u << (y - ((y >> 3u) << 3u));
         bitmap->data[index] |= value;

@@ -26,8 +26,7 @@ static inline uint16_t ssd1306_cursor_to_index(ssd1306_text_renderer_t *t,
 static inline uint8_t ssd1306_cursor_next_line(ssd1306_text_renderer_t *t)
 {
     uint8_t next_line = t->cursor_row + t->font->page_alignment;
-    if (next_line > (t->bitmap->height >> 3) - t->font->page_alignment)
-    {
+    if (next_line > (t->bitmap->height >> 3) - t->font->page_alignment) {
         return 1;
     }
     t->cursor_col = 0;
@@ -50,15 +49,12 @@ void ssd1306_draw_text(ssd1306_text_renderer_t *t, char *str)
 {
     uint16_t i = 0;
 
-    while (str[i])
-    {
-        if (str[i] == ' ')
-        {
+    while (str[i]) {
+        if (str[i] == ' ') {
             ssd1306_set_cursor_position(t, t->cursor_col + t->font->space_width,
                                         t->cursor_row);
-        }
-        else if (str[i] >= t->font->first_char && str[i] <= t->font->last_char)
-        {
+        } else if (str[i] >= t->font->first_char &&
+                   str[i] <= t->font->last_char) {
             uint8_t x = str[i] - t->font->first_char;
 
             uint8_t w = t->font->type == SSD1306_VARIABLE_WIDTH_FONT
@@ -69,32 +65,25 @@ void ssd1306_draw_text(ssd1306_text_renderer_t *t, char *str)
                                       ? t->font->char_offset[x]
                                       : x * w * t->font->page_alignment;
 
-            if (t->cursor_col + w >= t->bitmap->width)
-            {
-                if (ssd1306_cursor_next_line(t))
-                {
+            if (t->cursor_col + w >= t->bitmap->width) {
+                if (ssd1306_cursor_next_line(t)) {
                     break;
                 }
             }
 
-            for (uint8_t p = 0; p < t->font->page_alignment; p++)
-            {
+            for (uint8_t p = 0; p < t->font->page_alignment; p++) {
                 uint16_t cursor_index = ssd1306_cursor_to_index(
                     t, t->cursor_col, t->cursor_row + p);
-                for (uint8_t k = 0; k < w; k++)
-                {
+                for (uint8_t k = 0; k < w; k++) {
                     t->bitmap->data[cursor_index + k] =
                         t->font->data[font_index];
                     font_index++;
                 }
             }
-            if (str[i + 1] == ' ')
-            {
+            if (str[i + 1] == ' ') {
                 ssd1306_set_cursor_position(t, t->cursor_col + w,
                                             t->cursor_row);
-            }
-            else
-            {
+            } else {
                 ssd1306_set_cursor_position(
                     t, t->cursor_col + w + t->font->horizontal_separation,
                     t->cursor_row);

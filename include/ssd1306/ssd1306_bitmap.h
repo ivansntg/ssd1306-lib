@@ -20,8 +20,7 @@
 /**
  * @brief Struct for writing graphic primitives and text to the SSD1306 display.
  */
-typedef struct ssd1306_bitmap
-{
+typedef struct ssd1306_bitmap {
     uint8_t width;   /**< Display width in pixels. */
     uint8_t height;  /**< Display height in pixels. */
     uint16_t length; /**< Buffer length. */
@@ -34,8 +33,7 @@ typedef struct ssd1306_bitmap
  */
 static inline void ssd1306_bitmap_clear(ssd1306_bitmap_t *bitmap)
 {
-    for (uint16_t i = 1; i < bitmap->length; i++)
-    {
+    for (uint16_t i = 1; i < bitmap->length; i++) {
         bitmap->data[i] = 0x00;
     }
 }
