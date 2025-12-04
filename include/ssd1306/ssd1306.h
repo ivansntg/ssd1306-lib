@@ -160,7 +160,6 @@ typedef struct ssd1306_config {
     uint8_t phase1_period;        /**< Phase 1 period. (1-15). */
     uint8_t phase2_period;        /**< Phase 2 period. (1-15). */
     enum ssd1306_deselect_level deselect_level; /**< Deselect V_{COMH} level. */
-    enum ssd1306_charge_pump charge_pump; /**< Enable/disable charge pump. */
 } ssd1306_config_t;
 
 /**

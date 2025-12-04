@@ -41,14 +41,16 @@ void ssd1306_set_contrast(ssd1306_t *driver, uint8_t contrast)
 
 void ssd1306_set_display_on(ssd1306_t *driver)
 {
-    uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_SET_DISPLAY_ON};
-    _ssd1306_write(driver, cmd, 2u);
+    uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_CHARGE_PUMP_SETTING,
+                     ENABLE_CHARGE_PUMP, SSD1306_COMMAND_SET_DISPLAY_ON};
+    _ssd1306_write(driver, cmd, 4u);
 }
 
 void ssd1306_set_display_off(ssd1306_t *driver)
 {
-    uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_SET_DISPLAY_OFF};
-    _ssd1306_write(driver, cmd, 2u);
+    uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_CHARGE_PUMP_SETTING,
+                     DISABLE_CHARGE_PUMP, SSD1306_COMMAND_SET_DISPLAY_OFF};
+    _ssd1306_write(driver, cmd, 4u);
 }
 
 void ssd1306_set_normal_display(ssd1306_t *driver)
@@ -114,9 +116,9 @@ void ssd1306_deactivate_scroll(ssd1306_t *driver)
 
 void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
 {
+    ssd1306_set_display_off(driver);
     uint8_t cmd[] = {
         CONTROL_BYTE_COMMAND,
-        SSD1306_COMMAND_SET_DISPLAY_OFF,
         SSD1306_COMMAND_SET_MUX_RATIO,
         config.mux_ratio,
         SSD1306_COMMAND_SET_DISPLAY_OFFSET,
@@ -146,10 +148,8 @@ void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
         config.end_column,
         SSD1306_COMMAND_SET_PAGE_ADDRESS,
         config.start_page,
-        config.end_page,
-        SSD1306_COMMAND_CHARGE_PUMP_SETTING,
-        config.charge_pump};
-    _ssd1306_write(driver, cmd, 34u);
+        config.end_page};
+    _ssd1306_write(driver, cmd, 31u);
 }
 
 ssd1306_config_t ssd1306_get_default_config(void)
@@ -173,8 +173,7 @@ ssd1306_config_t ssd1306_get_default_config(void)
         .oscillator_frequency = 8,
         .phase1_period = 2,
         .phase2_period = 2,
-        .deselect_level = DESELECT_LEVEL_77_PERCENT_VCC,
-        .charge_pump = DISABLE_CHARGE_PUMP};
+        .deselect_level = DESELECT_LEVEL_77_PERCENT_VCC};
     return default_config;
 }
 
