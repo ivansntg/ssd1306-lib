@@ -1,5 +1,5 @@
 /**
- * @file ssd1306_graphics.h
+ * @file ssd1306_graphics.c
  * @author Iván Santiago (https://github.com/ivansntg)
  * @brief This file provides functions for drawing lines, polygons and circles
  *        to the SSD1306 display.

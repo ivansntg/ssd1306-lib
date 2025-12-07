@@ -1,2 +1,5 @@
 # Do not track build directory
 build/
+# Do not track doxygen output directories
+docs/html
+docs/latex

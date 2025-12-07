@@ -1,0 +1,22 @@
+# Project related configuration
+DOXYFILE_ENCODING       = UTF-8
+PROJECT_NAME            = "SSD1306 library for microcontrollers"
+PROJECT_NUMBER          =
+PROJECT_BRIEF           = ""
+
+OUTPUT_DIRECTORY        = 
+OUTPUT_LANGUAGE         = English
+
+OPTIMIZE_OUTPUT_FOR_C   = YES
+
+# Build related configuration
+EXTRACT_STATIC          = YES
+
+# Input
+INPUT                   = ../src ../include ../README.md
+INPUT_ENCODING          = UTF-8
+FILE_PATTERNS           = *.c \
+                          *.h \
+                          *.md
+RECURSIVE               = YES
+USE_MDFILE_AS_MAINPAGE  = ../README.md

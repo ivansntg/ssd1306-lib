@@ -44,8 +44,9 @@
  * @brief Struct for driving a SSD1306-based display.
  */
 typedef struct ssd1306 {
-    uint8_t i2c_address; /**< SSD1306 I2C address. */
-    /**< Function to write to the SSD1306 chip using the I2C interface. */
+    /** SSD1306 I2C address. */
+    uint8_t i2c_address;
+    /** Function to write to the SSD1306 chip using the I2C interface. */
     void (*i2c_write)(uint8_t, uint8_t *, uint16_t);
 } ssd1306_t;
 
@@ -159,7 +160,8 @@ typedef struct ssd1306_config {
     uint8_t oscillator_frequency; /**< Oscillator frequency. (0-15). */
     uint8_t phase1_period;        /**< Phase 1 period. (1-15). */
     uint8_t phase2_period;        /**< Phase 2 period. (1-15). */
-    enum ssd1306_deselect_level deselect_level; /**< Deselect V_{COMH} level. */
+    enum ssd1306_deselect_level
+        deselect_level; /**< Deselect $V_{COMH} level. */
 } ssd1306_config_t;
 
 /**
