@@ -106,13 +106,13 @@ const uint8_t font_ascii_7x11[1138] = {
     0x8e, 0x50, 0x20, 0x04, 0x04, 0x03, 0x00, 0x00, 0x20, 0x10, 0x10, 0x20,
     0x40, 0x40, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-uint8_t ssd1306_ascii_7x11_width[94] = {
+const uint8_t ssd1306_ascii_7x11_width[94] = {
     1, 3, 6, 5, 7, 7, 1, 4, 4, 5, 7, 2, 7, 2, 7, 7, 5, 7, 7, 7, 7, 7, 7, 7,
     7, 2, 2, 5, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
     7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, 7, 5, 5, 7, 3, 7, 7, 7, 7, 7, 7, 7, 7,
     3, 4, 5, 3, 7, 7, 7, 7, 7, 6, 7, 5, 7, 7, 7, 7, 7, 7, 5, 1, 5, 7};
 
-uint16_t ssd1306_ascii_7x11_offset[94] = {
+const uint16_t ssd1306_ascii_7x11_offset[94] = {
     0,    2,    8,    20,   30,   44,   58,   60,   68,   76,  86,  100,
     104,  118,  122,  136,  150,  160,  174,  188,  202,  216, 230, 244,
     258,  272,  276,  280,  290,  304,  314,  328,  342,  356, 370, 384,
@@ -122,15 +122,15 @@ uint16_t ssd1306_ascii_7x11_offset[94] = {
     882,  888,  896,  906,  912,  926,  940,  954,  968,  982, 994, 1008,
     1018, 1032, 1046, 1060, 1074, 1088, 1102, 1112, 1114, 1124};
 
-ssd1306_font_t font_7x11 = {.type = SSD1306_VARIABLE_WIDTH_FONT,
-                            .first_char = '!',
-                            .last_char = '~',
-                            .space_width = 7,
-                            .horizontal_separation = 3,
-                            .page_alignment = 2,
-                            .data = font_ascii_7x11,
-                            .data_length = 1138,
-                            .char_width = ssd1306_ascii_7x11_width,
-                            .char_offset = ssd1306_ascii_7x11_offset};
+const ssd1306_font_t font_7x11 = {.type = SSD1306_VARIABLE_WIDTH_FONT,
+                                  .first_char = '!',
+                                  .last_char = '~',
+                                  .space_width = 7,
+                                  .horizontal_separation = 3,
+                                  .page_alignment = 2,
+                                  .data = font_ascii_7x11,
+                                  .data_length = 1138,
+                                  .char_width = ssd1306_ascii_7x11_width,
+                                  .char_offset = ssd1306_ascii_7x11_offset};
 
 #endif /* !__SSD1306_FONT_7X11_H */

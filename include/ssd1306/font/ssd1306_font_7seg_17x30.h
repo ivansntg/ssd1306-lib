@@ -75,13 +75,13 @@ const uint8_t font_seven_segment_17x30[748] = {
     0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x07, 0x07, 0x07, 0x03, 0x01, 0x00,
     0x00, 0x00, 0x00, 0x00};
 
-ssd1306_font_t font_7segment = {.type = SSD1306_FIXED_WIDTH_FONT,
-                                .first_char = '0',
-                                .last_char = ':',
-                                .space_width = 17,
-                                .horizontal_separation = 4,
-                                .page_alignment = 4,
-                                .data = font_seven_segment_17x30,
-                                .data_length = 748};
+const ssd1306_font_t font_7segment = {.type = SSD1306_FIXED_WIDTH_FONT,
+                                      .first_char = '0',
+                                      .last_char = ':',
+                                      .space_width = 17,
+                                      .horizontal_separation = 4,
+                                      .page_alignment = 4,
+                                      .data = font_seven_segment_17x30,
+                                      .data_length = 748};
 
 #endif /* !__SSD1306_FONT_7SEG_17X30_H */
