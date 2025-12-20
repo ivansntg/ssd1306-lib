@@ -24,7 +24,7 @@ struct ssd1306_text {
 
 /**
  * @brief Sets cursor position.
- * @param r Pointer to a ssd1306_text_renderer struct.
+ * @param r Pointer to a ssd1306_text struct.
  * @param col Cursor column.
  * @param row Cursor row.
  */
@@ -33,9 +33,17 @@ void ssd1306_set_cursor_position(struct ssd1306_text *t, uint8_t col,
 
 /**
  * @brief Draws a some text at the current cursor position.
- * @param r Pointer to a ssd1306_text_renderer struct.
+ * @param r Pointer to a ssd1306_text struct.
  * @param str Text to draw.
  */
 void ssd1306_draw_text(struct ssd1306_text *t, char *str);
+
+/**
+ * @brief Computes the text width.
+ * @param t Pointer to a ssd1306_text struct.
+ * @param str Text.
+ * @return Text width in pixels.
+ */
+uint16_t ssd1306_text_width(struct ssd1306_text *t, char *str);
 
 #endif /* !__SSD1306_TEXT_H */

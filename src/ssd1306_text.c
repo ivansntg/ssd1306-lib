@@ -93,3 +93,31 @@ void ssd1306_draw_text(struct ssd1306_text *t, char *str)
         i++;
     }
 }
+
+uint16_t ssd1306_text_width(struct ssd1306_text *t, char *str)
+{
+    uint16_t i = 0;
+    uint16_t width = 0;
+
+    while (str[i]) {
+        if (str[i] == ' ') {
+            width += t->font->space_width;
+        } else if (str[i] >= t->font->first_char &&
+                   str[i] <= t->font->last_char) {
+            uint8_t x = str[i] - t->font->first_char;
+
+            uint8_t w = t->font->type == SSD1306_VARIABLE_WIDTH_FONT
+                            ? t->font->char_width[x]
+                            : t->font->space_width;
+
+            if (str[i + 1] == ' ' || str[i + 1] == 0x00)
+                width += w;
+            else
+                width += w + t->font->horizontal_separation;
+        }
+
+        i++;
+    }
+
+    return width;
+}
