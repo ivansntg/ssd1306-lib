@@ -27,59 +27,60 @@ enum ssd1306_control_byte {
  * @param src Pointer to data source.
  * @param len Number of bytes to write.
  */
-static inline void _ssd1306_write(ssd1306_t *driver, uint8_t *src, uint16_t len)
+static inline void _ssd1306_write(struct ssd1306_driver *driver, uint8_t *src,
+                                  uint16_t len)
 {
     driver->i2c_write(driver->i2c_address, src, len);
 }
 
-void ssd1306_set_contrast(ssd1306_t *driver, uint8_t contrast)
+void ssd1306_set_contrast(struct ssd1306_driver *driver, uint8_t contrast)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_SET_CONTRAST_CONTROL,
                      contrast};
     _ssd1306_write(driver, cmd, 3u);
 }
 
-void ssd1306_set_display_on(ssd1306_t *driver)
+void ssd1306_set_display_on(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_CHARGE_PUMP_SETTING,
                      ENABLE_CHARGE_PUMP, SSD1306_COMMAND_SET_DISPLAY_ON};
     _ssd1306_write(driver, cmd, 4u);
 }
 
-void ssd1306_set_display_off(ssd1306_t *driver)
+void ssd1306_set_display_off(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_CHARGE_PUMP_SETTING,
                      DISABLE_CHARGE_PUMP, SSD1306_COMMAND_SET_DISPLAY_OFF};
     _ssd1306_write(driver, cmd, 4u);
 }
 
-void ssd1306_set_normal_display(ssd1306_t *driver)
+void ssd1306_set_normal_display(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_SET_NORMAL_DISPLAY};
     _ssd1306_write(driver, cmd, 2u);
 }
 
-void ssd1306_set_inverse_display(ssd1306_t *driver)
+void ssd1306_set_inverse_display(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_SET_INVERSE_DISPLAY};
     _ssd1306_write(driver, cmd, 2u);
 }
 
-void ssd1306_set_entire_display_on(ssd1306_t *driver)
+void ssd1306_set_entire_display_on(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_ENTIRE_DISPLAY_ON};
     _ssd1306_write(driver, cmd, 2u);
 }
 
-void ssd1306_resume_to_ram_content(ssd1306_t *driver)
+void ssd1306_resume_to_ram_content(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND,
                      SSD1306_COMMAND_RESUME_TO_RAM_CONTENT};
     _ssd1306_write(driver, cmd, 2u);
 }
 
-void ssd1306_activate_scroll(ssd1306_t *driver,
-                             ssd1306_scrolling_config_t config)
+void ssd1306_activate_scroll(struct ssd1306_driver *driver,
+                             struct ssd1306_scrolling_config config)
 {
     if (config.mode >= VERTICAL_AND_RIGHT_SCROLL) {
         uint8_t cmd[] = {CONTROL_BYTE_COMMAND,
@@ -108,13 +109,14 @@ void ssd1306_activate_scroll(ssd1306_t *driver,
     }
 }
 
-void ssd1306_deactivate_scroll(ssd1306_t *driver)
+void ssd1306_deactivate_scroll(struct ssd1306_driver *driver)
 {
     uint8_t cmd[] = {CONTROL_BYTE_COMMAND, SSD1306_COMMAND_DEACTIVATE_SCROLL};
     _ssd1306_write(driver, cmd, 2u);
 }
 
-void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
+void ssd1306_configure(struct ssd1306_driver *driver,
+                       struct ssd1306_config config)
 {
     ssd1306_set_display_off(driver);
     uint8_t cmd[] = {
@@ -152,9 +154,9 @@ void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config)
     _ssd1306_write(driver, cmd, 31u);
 }
 
-ssd1306_config_t ssd1306_get_default_config(void)
+struct ssd1306_config ssd1306_get_default_config(void)
 {
-    ssd1306_config_t default_config = {
+    struct ssd1306_config default_config = {
         .contrast = 0x7F,
         .mode = NORMAL_DISPLAY,
         .addressing_mode = PAGE_ADDRESSING_MODE,
@@ -177,7 +179,8 @@ ssd1306_config_t ssd1306_get_default_config(void)
     return default_config;
 }
 
-void ssd1306_update_gddram(ssd1306_t *driver, uint8_t *bitmap, uint16_t lenght)
+void ssd1306_update_gddram(struct ssd1306_driver *driver, uint8_t *bitmap,
+                           uint16_t lenght)
 {
     bitmap[0] = CONTROL_BYTE_DATA;
     _ssd1306_write(driver, bitmap, lenght);

@@ -7,25 +7,25 @@
 
 #include "ssd1306/ssd1306_graphics.h"
 
-void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
+void ssd1306_draw_line(struct ssd1306_bitmap *bm, int8_t x1, int8_t y1,
                        int8_t x2, int8_t y2)
 {
     if (x1 < 0)
         x1 = 0;
     if (y1 < 0)
         y1 = 0;
-    if (x1 >= bitmap->width)
-        x1 = bitmap->width - 1;
-    if (y1 >= bitmap->height)
-        y1 = bitmap->height - 1;
+    if (x1 >= bm->width)
+        x1 = bm->width - 1;
+    if (y1 >= bm->height)
+        y1 = bm->height - 1;
     if (x2 < 0)
         x2 = 0;
     if (y2 < 0)
         y2 = 0;
-    if (x2 >= bitmap->width)
-        x2 = bitmap->width - 1;
-    if (y2 >= bitmap->height)
-        y2 = bitmap->height - 1;
+    if (x2 >= bm->width)
+        x2 = bm->width - 1;
+    if (y2 >= bm->height)
+        y2 = bm->height - 1;
 
     int16_t dx = x2 - x1;
     int16_t dy = y2 - y1;
@@ -47,7 +47,7 @@ void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
     int16_t de;
 
     for (;;) {
-        ssd1306_set_pixel(bitmap, x1, y1);
+        ssd1306_set_pixel(bm, x1, y1);
         de = 2 * e;
 
         if (de >= dy) {
@@ -66,7 +66,7 @@ void ssd1306_draw_line(ssd1306_bitmap_t *bitmap, int8_t x1, int8_t y1,
     }
 }
 
-void ssd1306_draw_circle(ssd1306_bitmap_t *bitmap, int8_t cx, int8_t cy,
+void ssd1306_draw_circle(struct ssd1306_bitmap *bm, int8_t cx, int8_t cy,
                          int8_t r)
 {
     int16_t x = -r;
@@ -74,10 +74,10 @@ void ssd1306_draw_circle(ssd1306_bitmap_t *bitmap, int8_t cx, int8_t cy,
     int16_t e = 2 - 2 * r;
 
     do {
-        ssd1306_set_pixel(bitmap, cx - x, cy + y);
-        ssd1306_set_pixel(bitmap, cx - y, cy - x);
-        ssd1306_set_pixel(bitmap, cx + x, cy - y);
-        ssd1306_set_pixel(bitmap, cx + y, cy + x);
+        ssd1306_set_pixel(bm, cx - x, cy + y);
+        ssd1306_set_pixel(bm, cx - y, cy - x);
+        ssd1306_set_pixel(bm, cx + x, cy - y);
+        ssd1306_set_pixel(bm, cx + y, cy + x);
 
         r = e;
 
@@ -89,19 +89,19 @@ void ssd1306_draw_circle(ssd1306_bitmap_t *bitmap, int8_t cx, int8_t cy,
     } while (x < 0);
 }
 
-void ssd1306_draw_polygon(ssd1306_bitmap_t *bitmap, int8_t *x, int8_t *y,
+void ssd1306_draw_polygon(struct ssd1306_bitmap *bm, int8_t *x, int8_t *y,
                           uint16_t n)
 {
     for (uint16_t i = 0; i < n - 1; i++) {
-        ssd1306_draw_line(bitmap, x[i], y[i], x[i + 1], y[i + 1]);
+        ssd1306_draw_line(bm, x[i], y[i], x[i + 1], y[i + 1]);
     }
-    ssd1306_draw_line(bitmap, x[n - 1], y[n - 1], x[0], y[0]);
+    ssd1306_draw_line(bm, x[n - 1], y[n - 1], x[0], y[0]);
 }
 
-void ssd1306_draw_polyline(ssd1306_bitmap_t *bitmap, int8_t *x, int8_t *y,
+void ssd1306_draw_polyline(struct ssd1306_bitmap *bm, int8_t *x, int8_t *y,
                            uint16_t n)
 {
     for (uint16_t i = 0; i < n - 1; i++) {
-        ssd1306_draw_line(bitmap, x[i], y[i], x[i + 1], y[i + 1]);
+        ssd1306_draw_line(bm, x[i], y[i], x[i + 1], y[i + 1]);
     }
 }

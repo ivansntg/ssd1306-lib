@@ -21,7 +21,7 @@ enum ssd1306_font_type {
 /**
  * @brief Struct for managing a bitmap-based font.
  */
-typedef struct ssd1306_font {
+struct ssd1306_font {
     enum ssd1306_font_type type; /**< Fixed width or variable width font. */
     char first_char;             /**< First ASCII character. */
     char last_char;              /**< Last ASCII character. */
@@ -32,6 +32,6 @@ typedef struct ssd1306_font {
     const uint16_t data_length;    /**< Font bitmap data length. */
     const uint8_t *char_width;     /**< Array containing character widths. */
     const uint16_t *char_offset;   /** Array containing character offset. < */
-} ssd1306_font_t;
+};
 
 #endif /* !__SSD1306_FONT_H */

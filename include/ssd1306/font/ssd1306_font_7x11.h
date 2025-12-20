@@ -122,15 +122,16 @@ const uint16_t ssd1306_ascii_7x11_offset[94] = {
     882,  888,  896,  906,  912,  926,  940,  954,  968,  982, 994, 1008,
     1018, 1032, 1046, 1060, 1074, 1088, 1102, 1112, 1114, 1124};
 
-const ssd1306_font_t font_7x11 = {.type = SSD1306_VARIABLE_WIDTH_FONT,
-                                  .first_char = '!',
-                                  .last_char = '~',
-                                  .space_width = 7,
-                                  .horizontal_separation = 3,
-                                  .page_alignment = 2,
-                                  .data = font_ascii_7x11,
-                                  .data_length = 1138,
-                                  .char_width = ssd1306_ascii_7x11_width,
-                                  .char_offset = ssd1306_ascii_7x11_offset};
+const struct ssd1306_font font_7x11 = {.type = SSD1306_VARIABLE_WIDTH_FONT,
+                                       .first_char = '!',
+                                       .last_char = '~',
+                                       .space_width = 7,
+                                       .horizontal_separation = 3,
+                                       .page_alignment = 2,
+                                       .data = font_ascii_7x11,
+                                       .data_length = 1138,
+                                       .char_width = ssd1306_ascii_7x11_width,
+                                       .char_offset =
+                                           ssd1306_ascii_7x11_offset};
 
 #endif /* !__SSD1306_FONT_7X11_H */

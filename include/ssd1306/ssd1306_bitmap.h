@@ -5,8 +5,8 @@
  *        graphic primitives and text.
  */
 
-#ifndef __SSD1306_CANVAS_H
-#define __SSD1306_CANVAS_H
+#ifndef __SSD1306_BITMAP_H
+#define __SSD1306_BITMAP_H
 
 #include <stdint.h>
 
@@ -20,22 +20,22 @@
 /**
  * @brief Struct for writing graphic primitives and text to the SSD1306 display.
  */
-typedef struct ssd1306_bitmap {
+struct ssd1306_bitmap {
     uint8_t width;   /**< Display width in pixels. */
     uint8_t height;  /**< Display height in pixels. */
     uint16_t length; /**< Buffer length. */
     uint8_t *data;   /**< Pointer to buffer data. */
-} ssd1306_bitmap_t;
+};
 
 /**
  * @brief Fills the canvas data with 0x00.
  * @param canvas Pointer to a ssd1306_canvas struct.
  */
-static inline void ssd1306_bitmap_clear(ssd1306_bitmap_t *bitmap)
+static inline void ssd1306_bitmap_clear(struct ssd1306_bitmap *bm)
 {
-    for (uint16_t i = 1; i < bitmap->length; i++) {
-        bitmap->data[i] = 0x00;
+    for (uint16_t i = 1; i < bm->length; i++) {
+        bm->data[i] = 0x00;
     }
 }
 
-#endif /* !__SSD1306_CANVAS_H */
+#endif /* !__SSD1306_BITMAP_H */

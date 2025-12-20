@@ -41,16 +41,6 @@
 #define SSD1306_COMMAND_CHARGE_PUMP_SETTING 0x8D
 
 /**
- * @brief Struct for driving a SSD1306-based display.
- */
-typedef struct ssd1306 {
-    /** SSD1306 I2C address. */
-    uint8_t i2c_address;
-    /** Function to write to the SSD1306 chip using the I2C interface. */
-    void (*i2c_write)(uint8_t, uint8_t *, uint16_t);
-} ssd1306_t;
-
-/**
  * @brief SSD1306 display mode. When the inverted mode is selected a 0 in RAM is
  *        ON in the display panel.
  */
@@ -139,9 +129,19 @@ enum ssd1306_scrolling_rate {
 };
 
 /**
+ * @brief Struct for driving a SSD1306-based display.
+ */
+struct ssd1306_driver {
+    /** SSD1306 I2C address. */
+    uint8_t i2c_address;
+    /** Function to write to the SSD1306 chip using the I2C interface. */
+    void (*i2c_write)(uint8_t, uint8_t *, uint16_t);
+};
+
+/**
  * @brief Struct for configuring the SSD1306 chip.
  */
-typedef struct ssd1306_config {
+struct ssd1306_config {
     uint8_t contrast;               /**< Contrast level (0-255). */
     enum ssd1306_display_mode mode; /**< Normal or inverted mode. */
     enum ssd1306_addressing_mode addressing_mode; /**< Addressing mode. */
@@ -162,12 +162,12 @@ typedef struct ssd1306_config {
     uint8_t phase2_period;        /**< Phase 2 period. (1-15). */
     enum ssd1306_deselect_level
         deselect_level; /**< Deselect $V_{COMH} level. */
-} ssd1306_config_t;
+};
 
 /**
  * @brief Struct for configuring SSD1306 scroll.
  */
-typedef struct ssd1306_scrolling_config {
+struct ssd1306_scrolling_config {
     enum ssd1306_scrolling_mode mode; /**< Scrolling mode. */
     enum ssd1306_scrolling_rate rate; /**< Scrolling rate. */
     uint8_t start_page;               /**< Horizontal scrolling start page. */
@@ -175,77 +175,78 @@ typedef struct ssd1306_scrolling_config {
     uint8_t vertical_offset;          /**< Vertical scrolling offset. */
     uint8_t start_row; /**< Number of rows in the top fixed area. */
     uint8_t rows;      /**< Number of rows for vertical scrolling. */
-} ssd1306_scrolling_config_t;
+};
 
 /**
  * @brief Sets the contrast value.
  * @param driver Pointer to a ssd1306 struct.
  * @param contrast Contrast value.
  */
-void ssd1306_set_contrast(ssd1306_t *driver, uint8_t contrast);
+void ssd1306_set_contrast(struct ssd1306_driver *driver, uint8_t contrast);
 
 /**
  * @brief Sets the display on. (Normal mode)
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_set_display_on(ssd1306_t *driver);
+void ssd1306_set_display_on(struct ssd1306_driver *driver);
 
 /**
  * @brief Sets the display off. (Sleep mode)
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_set_display_off(ssd1306_t *driver);
+void ssd1306_set_display_off(struct ssd1306_driver *driver);
 
 /**
  * @brief Sets normal display mode. A 0 in RAM means OFF in the display panel.
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_set_normal_display(ssd1306_t *driver);
+void ssd1306_set_normal_display(struct ssd1306_driver *driver);
 
 /**
  * @brief Sets inverse display mode. A 0 in RAM means ON in the display panel.
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_set_inverse_display(ssd1306_t *driver);
+void ssd1306_set_inverse_display(struct ssd1306_driver *driver);
 
 /**
  * @brief Sets the entire display on.
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_set_entire_display_on(ssd1306_t *driver);
+void ssd1306_set_entire_display_on(struct ssd1306_driver *driver);
 
 /**
  * @brief Resumes to RAM content.
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_resume_to_ram_content(ssd1306_t *driver);
+void ssd1306_resume_to_ram_content(struct ssd1306_driver *driver);
 
 /**
  * @brief Activates display scrolling.
  * @param driver Pointer to a ssd1306 struct.
  * @param config Struct that defines scrolling configuration.
  */
-void ssd1306_activate_scroll(ssd1306_t *driver,
-                             ssd1306_scrolling_config_t config);
+void ssd1306_activate_scroll(struct ssd1306_driver *driver,
+                             struct ssd1306_scrolling_config config);
 
 /**
  * @brief Deactivates display scrolling.
  * @param driver Pointer to a ssd1306 struct.
  */
-void ssd1306_deactivate_scroll(ssd1306_t *driver);
+void ssd1306_deactivate_scroll(struct ssd1306_driver *driver);
 
 /**
  * @brief Configures the SSD1306 chip.
  * @param driver Pointer to a ssd1306 struct.
  * @param config Struct that defines SSD1306 configuration.
  */
-void ssd1306_configure(ssd1306_t *driver, ssd1306_config_t config);
+void ssd1306_configure(struct ssd1306_driver *driver,
+                       struct ssd1306_config config);
 
 /**
  * @brief Returns the default SSD1306 configuration.
  * @return A ssd1306_config struct that contains SSD1306 reset values.
  */
-ssd1306_config_t ssd1306_get_default_config(void);
+struct ssd1306_config ssd1306_get_default_config(void);
 
 /**
  * @brief Updates SSD1306 Graphics Display Data RAM.
@@ -254,6 +255,7 @@ ssd1306_config_t ssd1306_get_default_config(void);
  * @pram length Number of bytes to write.
  * @note The first byte in the bitmap array is reserved as a control byte.
  */
-void ssd1306_update_gddram(ssd1306_t *driver, uint8_t *bitmap, uint16_t lenght);
+void ssd1306_update_gddram(struct ssd1306_driver *driver, uint8_t *bitmap,
+                           uint16_t lenght);
 
 #endif /* !__SSD1306_H */

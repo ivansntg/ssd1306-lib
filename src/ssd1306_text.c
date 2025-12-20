@@ -2,7 +2,7 @@
  * @file ssd1306_text.c
  * @author Iván Santiago (https://github.com/ivansntg)
  * @brief This file provides functions, macros and data structures for
- * rendering bitmap-based text to the SSD1306 display.
+ *        rendering bitmap-based text to the SSD1306 display.
  */
 
 #include "ssd1306/ssd1306_text.h"
@@ -13,7 +13,7 @@
  * @param col Cursor column position.
  * @param row Cursor row position.
  */
-static inline uint16_t ssd1306_cursor_to_index(ssd1306_text_renderer_t *t,
+static inline uint16_t ssd1306_cursor_to_index(struct ssd1306_text *t,
                                                uint8_t col, uint8_t row)
 {
     return (1 + col + row * t->bitmap->width);
@@ -23,7 +23,7 @@ static inline uint16_t ssd1306_cursor_to_index(ssd1306_text_renderer_t *t,
  * @brief Moves the cursor to the next line.
  * @param t Pointer to a ssd1306_text_renderer struct.
  */
-static inline uint8_t ssd1306_cursor_next_line(ssd1306_text_renderer_t *t)
+static inline uint8_t ssd1306_cursor_next_line(struct ssd1306_text *t)
 {
     uint8_t next_line = t->cursor_row + t->font->page_alignment;
     if (next_line > (t->bitmap->height >> 3) - t->font->page_alignment) {
@@ -34,7 +34,7 @@ static inline uint8_t ssd1306_cursor_next_line(ssd1306_text_renderer_t *t)
     return 0;
 }
 
-void ssd1306_set_cursor_position(ssd1306_text_renderer_t *t, uint8_t col,
+void ssd1306_set_cursor_position(struct ssd1306_text *t, uint8_t col,
                                  uint8_t row)
 {
     if (row > (t->bitmap->height >> 3) - t->font->page_alignment)
@@ -45,7 +45,7 @@ void ssd1306_set_cursor_position(ssd1306_text_renderer_t *t, uint8_t col,
     t->cursor_row = row;
 }
 
-void ssd1306_draw_text(ssd1306_text_renderer_t *t, char *str)
+void ssd1306_draw_text(struct ssd1306_text *t, char *str)
 {
     uint16_t i = 0;
 

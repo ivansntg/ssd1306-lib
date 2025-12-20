@@ -52,13 +52,13 @@ const unsigned char font_ascii_5x7[470] = {
     0x00, 0xff, 0x00, 0x00, 0x00, 0x41, 0x36, 0x08, 0x00, 0x08, 0x04, 0x08,
     0x10, 0x08};
 
-const ssd1306_font_t font_5x7 = {.type = SSD1306_FIXED_WIDTH_FONT,
-                                 .first_char = '!',
-                                 .last_char = '~',
-                                 .space_width = 5,
-                                 .horizontal_separation = 2,
-                                 .page_alignment = 1,
-                                 .data = font_ascii_5x7,
-                                 .data_length = 470};
+const struct ssd1306_font font_5x7 = {.type = SSD1306_FIXED_WIDTH_FONT,
+                                      .first_char = '!',
+                                      .last_char = '~',
+                                      .space_width = 5,
+                                      .horizontal_separation = 2,
+                                      .page_alignment = 1,
+                                      .data = font_ascii_5x7,
+                                      .data_length = 470};
 
 #endif /* !__SSD1306_FONT_5X7_H */
